@@ -1,14 +1,17 @@
 # == Class: java
 #
-# This class is used to install Java for OS X (2013-004).
+# Install Java for OS X
+#
+# === Parameters:
+#
+# [*version*] Version of Java for OSX
+# [*url_hash*] URL hash
 #
 # === Examples
 #
-#  include java
-#
-#  or
-#
-#  class { java: }
+#  class {'java':
+#    'version' => '2013-004'
+#  }
 #
 # === Authors
 #
@@ -18,7 +21,10 @@
 #
 # Copyright 2013 Ryan Skoblenick.
 #
-class java() {
+class java(
+  $url_hash = $java::params::url_hash,
+  $version = $java::params::version
+) inherits java::params {
   anchor {'java::begin': } ->
   class {'java::install': } ->
   anchor {'java::end': }

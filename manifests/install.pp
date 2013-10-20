@@ -1,6 +1,6 @@
 # == Class: java::install
 #
-# This class installs Java for OS X (2013-004) if not already install.
+# Install Java for OS X
 #
 # === Authors
 #
@@ -11,15 +11,18 @@
 # Copyright 2013 Ryan Skoblenick.
 #
 class java::install {
-  case $::kernel {
-    'Darwin': {
-       $source = 'http://supportdownload.apple.com/download.info.apple.com/Apple_Support_Area/Apple_Software_Updates/Mac_OS_X/downloads/091-7278.20130621.Ts30t/JavaForOSX2013-004.dmg'
-    }
-    default: {
-      fail("Unsupported Kernel: ${::kernel} operatingsystem: ${::operatingsystem}")
-    }
+
+  $url_hash = $java::url_hash
+  $version = $java::version
+
+  notice(downcase($::osfamily))
+
+  $source = downcase($::osfamily) ? {
+    'darwin' => "http://supportdownload.apple.com/download.info.apple.com/Apple_Support_Area/Apple_Software_Updates/Mac_OS_X/downloads/${url_hash}/JavaForOSX${version}.dmg",
+    #default => fail("Unsupported Kernel: ${::kernel} operatingsystem: ${::operatingsystem}")
   }
-  package {'JavaForOSX2013-004.dmg':
+
+  package {"JavaForOSX${version}":
     ensure => installed,
     source => $source,
     provider => pkgdmg,

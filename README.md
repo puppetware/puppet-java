@@ -1,37 +1,34 @@
 Puppet Module - Java for OS X
 =============================
 
-This Puppet module installs Java for OS X (2013-004).
+This Puppet module installs Java for OS X (2013-005).
 
 Supported Platforms:
 
-- OS X (10.7+)
+- Darwin
 
-Examples
---------
+Usage
+-----
 
-```
-include java
-```
-
-or
+Install Java for OS X (2013-005) by default:
 
 ```
 class {'java': }
 ```
 
-Versioning
-----------
+Install a specific version:
 
-puppet-java is maintained under the Semantic Versioning guidelines.
+```
+class {'java':
+  version => '2013-004'
+}
+```
 
-Releases will be numbered with the following format:
-
-`<major>.<minor>.<patch>`
-
-For more information on SemVer, please visit [http://semver.org/][semver].
-
-[semver]: http://semver.org
+Notes
+-----
+* The support file for Java for OS X 2013-005 has been incorrectly named 
+'JavaForOSX2013-05.dmg' on the Apple servers. If you need to specify the version 
+of '2013-005' use '2013-05' instead to correctly download the dmg.
 
 
 MIT License
